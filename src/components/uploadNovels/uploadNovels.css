@@ -1,0 +1,8 @@
+.setting-with-description-label {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.setting-label-description {
+    font-size: 12px;
+}

@@ -1,0 +1,16 @@
+.bottom-tab {
+    font-size: 15px;
+    font-weight: bold;
+    position: relative;
+}
+
+.bottom-tab:not(:last-child)::after {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: 20px;
+    transform: translate(0, -50%);
+    width: 1px;
+    background: var(--ion-color-medium);
+    content: "";
+}
