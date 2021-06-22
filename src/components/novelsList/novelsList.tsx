@@ -27,12 +27,12 @@ import type { RootReducer } from '../../store/reducers';
 export const NovelsList: React.FC = () => {
   const dispatch = useDispatch();
   const novels = useSelector((state: RootReducer) => state.novels);
+  const currentPlatform = useSelector(
+    (state: RootReducer) => state.settings.currentPlatform,
+  );
   useEffect(() => {
-    dispatch(getNovels());
+    dispatch(getNovels(currentPlatform));
   }, []);
-  useEffect(() => {
-    console.log(novels);
-  }, [novels]);
   return (
     <IonPage>
       <IonHeader>

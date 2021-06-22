@@ -38,11 +38,6 @@ const initDb = (): boolean => {
           [],
         );
 
-        const insert = await db.executeSql(
-          'insert into danceMoves (name) values (?)',
-          ['Macarena'],
-        );
-        await console.log('Inserted Macarena: ', insert);
         isError = false;
       } catch (e) {
         await SQLite.deleteDatabase({ name: 'novels.db', location: 'default' });

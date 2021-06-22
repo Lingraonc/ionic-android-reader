@@ -70,19 +70,27 @@ export const saveNovel = (
             [chapter.chapterSlug, novelId],
           );
           const chapterItem = chapterData.rows.item(0);
-          /* const novelChapterSlugItem = novel.chaptersSlugs.filter(
-            chapterSlug => {
-              return chapterItem.chapterSlug === chapterSlug.slug;
+
+          const novelChapterSlugItem = await novel.chaptersSlugs.map(
+            chapterSlugItem => {
+              if (
+                chapterItem.chapterSlug.toString() ===
+                chapterSlugItem.slug.toString()
+              ) {
+                return chapterSlugItem;
+              }
             },
           );
-          chapterItem.order = novelChapterSlugItem[0].order;*/
+          chapterItem.order = novelChapterSlugItem[0]?.order
+            ? novelChapterSlugItem[0]?.order
+            : 1;
           chaptersDataItems.push(chapterItem);
         }
 
         for await (const chapterDataItem of chaptersDataItems) {
           await db.executeSql(
             'insert or ignore into novels_chapters (novelId, chapterId, chapterOrder) values (?, ?, ?)',
-            [novelId, chapterDataItem.id, 0],
+            [novelId, chapterDataItem.id, chapterDataItem.order],
           );
         }
         isError = false;

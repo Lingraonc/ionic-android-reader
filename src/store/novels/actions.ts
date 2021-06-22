@@ -5,9 +5,11 @@ import type { NovelFirebaseInterface } from '../../services/firebase/firebase.in
 
 export const getNovels = createAsyncThunk(
   'novels/getNovels',
-  async (_, { dispatch: dispatch }) => {
+  async (currentPlatform: 'desktop' | 'mobile', { dispatch: dispatch }) => {
     dispatch(setNovelsLoading(true));
+
     let novels: NovelFirebaseInterface[] = [];
+
     try {
       novels = await getNovelsContentFirebase();
     } catch (err) {
